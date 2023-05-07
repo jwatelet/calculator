@@ -1,9 +1,9 @@
 
-let numberA;
-let numberB;
-let selectedOperator;
-
 const divisionByZeroErrorMessage = "DIVISION BY 0 IS IMPOSSIBLE";
+const firstNumber = document.querySelector(".firstNumber");
+const secondNumber = document.querySelector(".secondNumber");
+const operator = document.querySelector(".operator");
+const result = document.querySelector(".result");
 
 configNumberButtons();
 configOperatorButtons();
@@ -15,22 +15,22 @@ function configOperatorButtons() {
   document.getElementById("btnMultiply").addEventListener('click', (_) => clickOperator("*"));
   document.getElementById("btnEqual").addEventListener('click', (_) => clickEqual());
   document.getElementById("btnAC").addEventListener('click', (_) => resetAll());
-  document.getElementById("btnC").addEventListener('click', (_) => clearScreen());
+  document.getElementById("btnC").addEventListener('click', (_) => clearLastVariable());
   document.getElementById("btnPercent").addEventListener('click', (_) => percent());
   document.getElementById("btnDecimal").addEventListener('click', (_) => decimal());
 }
 
 function configNumberButtons() {
-  document.getElementById("btnZero").addEventListener('click', (_) => appendCharToScreen(0));
-  document.getElementById("btnOne").addEventListener('click', (_) => appendCharToScreen(1));
-  document.getElementById("btnTwo").addEventListener('click', (_) => appendCharToScreen(2));
-  document.getElementById("btnThree").addEventListener('click', (_) => appendCharToScreen(3));
-  document.getElementById("btnFour").addEventListener('click', (_) => appendCharToScreen(4));
-  document.getElementById("btnFive").addEventListener('click', (_) => appendCharToScreen(5));
-  document.getElementById("btnSix").addEventListener('click', (_) => appendCharToScreen(6));
-  document.getElementById("btnSeven").addEventListener('click', (_) => appendCharToScreen(7));
-  document.getElementById("btnEight").addEventListener('click', (_) => appendCharToScreen(8));
-  document.getElementById("btnNine").addEventListener('click', (_) => appendCharToScreen(9));
+  document.getElementById("btnZero").addEventListener('click', (_) => clickNumber(0));
+  document.getElementById("btnOne").addEventListener('click', (_) => clickNumber(1));
+  document.getElementById("btnTwo").addEventListener('click', (_) => clickNumber(2));
+  document.getElementById("btnThree").addEventListener('click', (_) => clickNumber(3));
+  document.getElementById("btnFour").addEventListener('click', (_) => clickNumber(4));
+  document.getElementById("btnFive").addEventListener('click', (_) => clickNumber(5));
+  document.getElementById("btnSix").addEventListener('click', (_) => clickNumber(6));
+  document.getElementById("btnSeven").addEventListener('click', (_) => clickNumber(7));
+  document.getElementById("btnEight").addEventListener('click', (_) => clickNumber(8));
+  document.getElementById("btnNine").addEventListener('click', (_) => clickNumber(9));
 
   window.addEventListener('keydown', clickButton);
 }
@@ -45,45 +45,56 @@ function clickButton(e) {
 }
 
 function decimal() {
-  const screen = document.querySelector(".screen");
+  if (result.textContent) {
 
-  if (!screen.textContent.includes(".")) {
-    appendCharToScreen(".");
+  } else if (!operator.textContent && firstNumber.textContent.length > 0 && !firstNumber.textContent.includes(".")) {
+    firstNumber.textContent += ".";
+  } else if (operator.textContent && secondNumber.textContent.length > 0 && !secondNumber.textContent.includes(".")) {
+    secondNumber.textContent += ".";
   }
 }
 
-function clickOperator(operator) {
-  const screen = document.querySelector(".screen");
+function clickNumber(num) {
+  if (firstNumber.textContent && operator.textContent && secondNumber.textContent && result.textContent) {
+    resetAll();
+    firstNumber.textContent = num;
+  } else if (!operator.textContent) {
+    firstNumber.textContent += num;
+  } else if (operator.textContent) {
+    secondNumber.textContent += num;
+  }
+}
 
-  numberA = +screen.textContent;
-  selectedOperator = operator;
-
-
-  screen.textContent = "";
+function clickOperator(char) {
+  if (result.textContent) {
+    const resultContent = +result.textContent;
+    firstNumber.textContent = resultContent;
+    secondNumber.textContent = "";
+    result.textContent = "";
+    operator.textContent = char;
+  } else if (firstNumber.textContent && operator.textContent && secondNumber.textContent) {
+    clickEqual();
+  } else if (firstNumber.textContent) {
+    operator.textContent = char;
+  }
 }
 
 function clickEqual() {
-
-  const screen = document.querySelector(".screen");
-
-  if (numberA && selectedOperator) {
-    numberB = +screen.textContent
-    const result = operate(numberA, numberB, selectedOperator);
-    screen.textContent = result;
-    numberA = result;
+  if (firstNumber.textContent && operator.textContent && secondNumber.textContent) {
+    const operationResult = operate(+firstNumber.textContent, +secondNumber.textContent, operator.textContent);
+    result.textContent = operationResult;
   }
 }
 
 function percent() {
-  const screen = document.querySelector(".screen");
 
-  numberA = +screen.textContent
-  numberB = 100;
-  selectedOperator = "/";
+  if (firstNumber.textContent && !operator.textContent && !secondNumber.textContent) {
 
-  const result = operate(numberA, numberB, selectedOperator);
-  screen.textContent = result;
-  numberA = result;
+    const operateResult = operate(+firstNumber.textContent, 100, "/");
+
+    result.textContent = operateResult;
+  }
+
 }
 
 function operate(numberA, numberB, operator) {
@@ -100,8 +111,6 @@ function operate(numberA, numberB, operator) {
 }
 
 function appendCharToScreen(char) {
-  const screen = document.querySelector(".screen");
-
   if (screen.textContent.length < 20) {
     if (screen.textContent === divisionByZeroErrorMessage) {
       screen.textContent = char;
@@ -133,20 +142,21 @@ function divide(a, b) {
   return a / b;
 }
 
-function clearScreen() {
-  const screen = document.querySelector(".screen");
-
-  screen.textContent = "";
+function clearLastVariable() {
+  if (firstNumber.textContent && operator.textContent && secondNumber.textContent && result.textContent) {
+    result.textContent = "";
+  } else if (firstNumber.textContent && operator.textContent && secondNumber.textContent) {
+    secondNumber.textContent = "";
+  } else if (firstNumber.textContent && operator.textContent) {
+    operator.textContent = "";
+  } else if (firstNumber.textContent) {
+    firstNumber.textContent = "";
+  }
 }
 
 function resetAll() {
-  resetVariables();
-  const screen = document.querySelector(".screen");
-  screen.textContent = '';
-}
-
-function resetVariables() {
-  numberA = null;
-  numberB = null;
-  selectedOperator = null;
+  firstNumber.textContent = "";
+  operator.textContent = "";
+  secondNumber.textContent = "";
+  result.textContent = "";
 }
