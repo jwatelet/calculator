@@ -50,6 +50,7 @@ button {
   color: #E6BDB8;
   border: 1px solid #61504E;
   font-size: 1.5em;
+  padding: 0;
 }
 
 button.darker:hover,
@@ -70,8 +71,8 @@ button.darker {
 
 #btnZero {
   flex: 2;
-  flex-basis: 20px;
   border-bottom-left-radius: 7px;
+  flex-basis: 4px;
 }
 
 #btnEqual {
