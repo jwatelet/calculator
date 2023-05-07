@@ -46,12 +46,6 @@ function clickButton(e) {
 }
 
 function negativePositive() {
-  // if (!operator.textContent && !firstNumber.firstNumber) {
-  //   toggleMinus(firstNumber);
-  // } else {
-  //   toggleMinus(secondNumber);
-  // }
-
   if (result.textContent) {
 
   } else if (!operator.textContent && firstNumber.textContent.length > 0 && !firstNumber.textContent.includes("-")) {
