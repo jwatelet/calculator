@@ -70,10 +70,8 @@ button.darker {
   background-color: #94463B;
 }
 
-#btnZero {
-  flex: 2;
+#btnPlusMinus {
   border-bottom-left-radius: 7px;
-  flex-basis: 4px;
 }
 
 #btnEqual {

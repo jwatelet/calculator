@@ -18,6 +18,7 @@ function configOperatorButtons() {
   document.getElementById("btnC").addEventListener('click', (_) => clearLastVariable());
   document.getElementById("btnPercent").addEventListener('click', (_) => percent());
   document.getElementById("btnDecimal").addEventListener('click', (_) => decimal());
+  document.getElementById("btnPlusMinus").addEventListener('click', (_) => negativePositive());
 }
 
 function configNumberButtons() {
@@ -41,6 +42,30 @@ function clickButton(e) {
 
   if (button) {
     button.click();
+  }
+}
+
+function negativePositive() {
+  // if (!operator.textContent && !firstNumber.firstNumber) {
+  //   toggleMinus(firstNumber);
+  // } else {
+  //   toggleMinus(secondNumber);
+  // }
+
+  if (result.textContent) {
+
+  } else if (!operator.textContent && firstNumber.textContent.length > 0 && !firstNumber.textContent.includes("-")) {
+    toggleMinus(firstNumber);
+  } else if (operator.textContent && secondNumber.textContent.length > 0 && !secondNumber.textContent.includes("-")) {
+    toggleMinus(secondNumber);
+  }
+}
+
+function toggleMinus(div) {
+  if (div.textContent.includes("-")) {
+    div.textContent = div.textContent.replace("-", "");
+  } else {
+    div.textContent = `-${div.textContent}`;
   }
 }
 
