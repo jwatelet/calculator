@@ -52,6 +52,13 @@ button {
   font-size: 1.5em;
 }
 
+button.darker:hover,
+button.lighter:hover,
+button:hover {
+  color: #61504E;
+  background-color: lightgray;
+}
+
 button.lighter {
   background-color: #FAB7A2;
   color: #613122;
