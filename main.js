@@ -15,7 +15,7 @@ function configOperatorButtons() {
   document.getElementById("btnMultiply").addEventListener('click', (_) => clickOperator("*"));
   document.getElementById("btnEqual").addEventListener('click', (_) => clickEqual());
   document.getElementById("btnAC").addEventListener('click', (_) => resetAll());
-  document.getElementById("btnC").addEventListener('click', (_) => removeLastChar());
+  document.getElementById("btnC").addEventListener('click', (_) => clearScreen());
   document.getElementById("btnPercent").addEventListener('click', (_) => percent());
   document.getElementById("btnDecimal").addEventListener('click', (_) => decimal());
 }
@@ -42,7 +42,6 @@ function clickButton(e) {
   if (button) {
     button.click();
   }
-
 }
 
 function decimal() {
@@ -134,10 +133,10 @@ function divide(a, b) {
   return a / b;
 }
 
-function removeLastChar() {
+function clearScreen() {
   const screen = document.querySelector(".screen");
 
-  screen.textContent = screen.textContent.slice(0, -1);
+  screen.textContent = "";
 }
 
 function resetAll() {
