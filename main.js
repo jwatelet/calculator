@@ -48,9 +48,9 @@ function clickButton(e) {
 function negativePositive() {
   if (result.textContent) {
 
-  } else if (!operator.textContent && firstNumber.textContent.length > 0 && !firstNumber.textContent.includes("-")) {
+  } else if (!operator.textContent && firstNumber.textContent.length > 0) {
     toggleMinus(firstNumber);
-  } else if (operator.textContent && secondNumber.textContent.length > 0 && !secondNumber.textContent.includes("-")) {
+  } else if (operator.textContent && secondNumber.textContent.length > 0) {
     toggleMinus(secondNumber);
   }
 }
