@@ -93,6 +93,10 @@ function clickOperator(char) {
     operator.textContent = char;
   } else if (firstNumber.textContent && operator.textContent && secondNumber.textContent) {
     clickEqual();
+    firstNumber.textContent = result.textContent;
+    operator.textContent = char;
+    secondNumber.textContent = "";
+    result.textContent = "";
   } else if (firstNumber.textContent) {
     operator.textContent = char;
   }
